@@ -84,7 +84,7 @@ const Login = () => {
               Not on Pinterest yet?
               <Link
                 to="/register"
-                className="font-medium text-pinterest hover:underline"
+                className="font-medium text-pinterest hover:underline px-2"
               >
                 Register
               </Link>

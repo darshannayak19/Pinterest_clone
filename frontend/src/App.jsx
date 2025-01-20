@@ -18,9 +18,9 @@ const App = () => {
         <Loading />
       ) : (
         <BrowserRouter>
-          {isAuth && <Navbar user={user} />}
+          <Navbar user={user} />
           <Routes>
-            <Route path="/" element={isAuth ? <Home /> : <Login />} />
+            <Route path="/" element={ <Home />} />
             <Route
               path="/account"
               element={isAuth ? <Account user={user} /> : <Login />}

@@ -7,6 +7,7 @@ const PinContext = createContext();
 export const PinProvider = ({ children }) => {
   const [pins, setPins] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchterm] = useState();
 
   async function fetchPins() {
     try {
@@ -82,6 +83,28 @@ export const PinProvider = ({ children }) => {
       setLoading(false);
     }
   }
+  async function searchPins(term = "") {  // Set default value for term
+    setLoading(true);
+    if (!term.trim()) {  // Now safe because term defaults to ""
+        try {
+            const { data } = await axios.get("/api/pin/all");
+            setPins(data);
+            setLoading(false);
+        } catch (error) {
+            console.log("Error fetching all pins:", error);
+            setLoading(false);
+        }
+    } else {
+        try {
+            const response = await axios.get(`/api/pin/search?term=${encodeURIComponent(term)}`);
+            setPins(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.log("Error in fetching search results:", error);
+            setLoading(false);
+        }
+    }
+}
 
   async function addPin(
     formData,
@@ -108,6 +131,7 @@ export const PinProvider = ({ children }) => {
 
   useEffect(() => {
     fetchPins();
+    searchPins();
   }, []);
   return (
     <PinContext.Provider
@@ -122,6 +146,7 @@ export const PinProvider = ({ children }) => {
         deletePin,
         addPin,
         fetchPins,
+        searchPins
       }}
     >
       {children}

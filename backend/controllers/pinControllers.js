@@ -28,7 +28,7 @@ export const createPin = TryCatch(async (req, res) => {
 
 export const getAllPins = TryCatch(async (req, res) => {
   const pins = await Pin.find().sort({ createdAt: -1 });
-
+  
   res.json(pins);
 });
 
@@ -142,4 +142,18 @@ export const updatePin = TryCatch(async (req, res) => {
   res.json({
     message: "Pin updated",
   });
+});
+
+export const searchPins = TryCatch(async (req, res) => {
+  const { term } = req.query; // Retrieve the search term from the query parameters
+  if (!term) {
+    return res.status(400).json({ message: "Search term is required" });
+  }
+
+  // Use a regex to perform a case-insensitive search
+  const pins = await Pin.find({
+    title: { $regex: term, $options: "i" }
+  }).sort({ createdAt: -1 });
+
+  res.json(pins);
 });
