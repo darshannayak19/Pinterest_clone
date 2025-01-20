@@ -10,21 +10,122 @@
   @apply w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500;
 }
 
-.masonry-grid {
+.container {
+  width: 100%; /* Use 100% width for fluid responsiveness */
+  padding: 0 20px; /* Optional padding */
+}
+
+.pins-grid {
+  column-count: 4; /* Number of columns */
+  column-gap: 20px; /* Gap between columns */
+}
+
+.box {
+  break-inside: avoid; /* Prevents column breaks inside a pin */
+  margin-bottom: 20px; /* Space between pins */
+  background: white; /* Optional: for better visibility */
+  border-radius: 8px; /* Optional: for styled corners */
+  overflow: hidden; /* Ensures content does not spill out */
+}
+
+/* Base styling for the page and elements */
+.page-container {
+  background: #f9f9f9; /* Light background for the whole page */
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   display: flex;
-  flex-flow: row;
+  flex-direction: column;
+  max-width: 800px; /* Restrict card size for focus */
+  margin: auto; /* Centering the card */
+  overflow: hidden;
 }
 
-.pin-card {
-  margin-bottom: 5px; /* Adjust gap between rows */
-  min-height: 300px;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #eee;
+  background: #fafafa; /* Slight grey background for the header */
 }
 
-.pin-sizer {
-  width: 16.666%; /* Adjust based on grid-cols-* settings */
+.card-content {
+  padding: 20px;
 }
 
-.pin-card img {
-  height: 300px; /* Adjust as necessary */
-  object-fit: cover; /* Ensures the image covers the designated area without distortion */
+.card-actions {
+  padding: 10px 24px;
+  border-top: 1px solid #eee;
+  background: #fafafa; /* Consistent with header for a balanced look */
+}
+
+.input-comment {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px 12px;
+  width: 100%;
+}
+
+.button {
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.button:hover {
+  background-color: #004494;
+}
+
+/* For images */
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.user-info, .comment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background: #ccc;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-details {
+  flex-grow: 1;
+}
+
+
+@media (max-width: 1024px) {
+  .pins-grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .pins-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .pins-grid {
+    column-count: 1;
+  }
 }

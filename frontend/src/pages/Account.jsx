@@ -42,21 +42,31 @@ const Account = ({ user }) => {
 
           <h1 className="text-center text-2xl font-bold mt-4">{user.name}</h1>
           <p className="text-center text-gray-600 mt-2">{user.email}</p>
-          <div className="flex justify-center mt-4 space-x-2">
+          <p className="flex justify-center items-center text-center gap-3 text-gray-600 mt-2">
+              {user.followers && <p>{user.followers.length} followers</p>}
+              {user.following && <p>{user.following.length} followings</p>}
+            </p>
+          <div className="flex justify-center mt-4 space-x-2 mb-6"> {/* Added mb-6 for margin-bottom */}
             <button
               onClick={logoutHandler}
-              className="bg-gray-200 px-4 py-2 rounded"
+              className="bg-gray-200 px-4 py-2 rounded hover:bg-red-500 transition-colors duration-300" // Added hover and transition
             >
               Logout
             </button>
           </div>
 
-          <div className="mt-4 flex flex-wrap justify-center gap-4">
-            {userPins && userPins.length > 0 ? (
-              userPins.map((e) => <PinCard key={e._id} pin={e} />)
-            ) : (
-              <p>No Pin Yet</p>
-            )}
+          <div className="container max-w-full mx-auto py-4 sm:px-6 lg:px-8">
+            <div className="pins-grid">
+              {userPins && userPins.length > 0 ? (
+                userPins.map((e) => (
+                  <div key={e._id} className="box">
+                    <PinCard pin={e} />
+                  </div>
+                ))
+              ) : (
+                <p>No Pins Yet</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
